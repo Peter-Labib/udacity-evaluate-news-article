@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NLP</title>
 </head>
 <body>
     <main>
         <div class="container">
-          <p>Enter a URL of an article / a blog to discover its sentiment.</p>
-          <section>
+          <section class="form-section">
+            <p>Enter a URL of an article to discover its sentiment.</p>
             <form id="form">
-              <label for="article-url">URL</label>
+              <label for="article-url" hidden>URL</label>
               <input id="article-url" type="text" name="input" value="" placeholder="Enter Article URL here" />
               <button
                 type="submit"
@@ -23,7 +23,7 @@
             </form>
           </section>
   
-          <section>
+          <section class="result-section">
             <strong>Form Results:</strong>
             <div id="text"></div>
             <div id="agreement"></div>
