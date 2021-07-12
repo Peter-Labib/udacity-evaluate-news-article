@@ -1,12 +1,17 @@
 const webpack = require('webpack')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  entry: './src/client/index.js',
   mode: 'development',
   devtool: 'source-map',
+  entry: './src/client/index.js',
+  output: {
+    libraryTarget: 'var',
+    library: 'Client',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: './'
+  },
   module: {
     rules: [
       {
@@ -17,9 +22,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-        },
       },
     ],
   },
@@ -28,14 +30,9 @@ module.exports = {
       template: './src/client/views/index.html',
       filename: './index.html',
     }),
-    new CleanWebpackPlugin({
-      dry: true,
-      verbose: true,
-      cleanStaleWebpackAssets: true,
-      protectWebpackAssets: false,
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name.css]',
-    }),
   ],
+  devServer: {
+    contentBase: "./dist",
+    hot: true,
+  },
 }

@@ -1,11 +1,21 @@
 const webpack = require('webpack')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.js',
   mode: 'production',
+  entry: './src/client/index.js',
+  output: {
+    libraryTarget: 'var',
+    library: 'Client',
+
+    // output path is required for `clean-webpack-plugin`
+    path: path.resolve(__dirname, "dist"),
+  },
+  watch: true,
   module: {
     rules: [
       {
@@ -16,10 +26,12 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-        },
       },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
     ],
   },
   plugins: [
